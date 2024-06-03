@@ -1,2 +1,2 @@
-Client based on:
-https://github.com/JayaramachandranAugustin/ChatApplication/blob/main/react-client/src/components/ChatRoom.js
+Client following the example of:
+https://github.com/JayaramachandranAugustin/ChatApplication
