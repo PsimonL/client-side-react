@@ -13,8 +13,11 @@ const Register = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:8080/auth/register', { firstName, lastName, email, password });
-      if (response.data) {
+      console.log(response.data);
+      if (response.data === "User registered successfully") {
         navigate('/login');
+      } else {
+        console.error('User already exists');
       }
     } catch (error) {
       console.error('Registration failed', error);

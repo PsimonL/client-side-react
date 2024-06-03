@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { over } from 'stompjs';
 import SockJS from 'sockjs-client';
 
 var stompClient = null;
 
 const ChatRoom = () => {
+    const location = useLocation();
+    const { email } = location.state || { email: '' };
     const [privateChats, setPrivateChats] = useState(new Map());
     const [publicChats, setPublicChats] = useState([]);
     const [tab, setTab] = useState("CHATROOM");
@@ -113,7 +116,11 @@ const ChatRoom = () => {
     };
 
     const registerUser = () => {
-        connect();
+        if (userData.username.trim() !== '') {
+            connect();
+        } else {
+            alert('Please enter a preferred nickname.');
+        }
     };
 
     return (
@@ -194,7 +201,7 @@ const ChatRoom = () => {
                 <div className="register">
                     <input
                         id="user-name"
-                        placeholder="Enter your name"
+                        placeholder="Enter preferred nickname"
                         name="userName"
                         value={userData.username}
                         onChange={handleUsername}
