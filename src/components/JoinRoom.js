@@ -8,6 +8,7 @@ function JoinRoom() {
 
   const joinRoom = () => {
     navigate(`/chat/${roomId}`, { state: { nickname } });
+    console.log("RoomJoinde = ", roomId);
   };
 
   return (

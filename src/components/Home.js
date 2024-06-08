@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
+  console.log("Rendering Home component");
   return (
     <div className="home-container centered-page">
       <h1>Welcome to Chat Application</h1>

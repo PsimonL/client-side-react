@@ -27,6 +27,7 @@ const ChatRoom = () => {
 
   const connect = () => {
     setUserData(prevState => ({ ...prevState, connected: false }));
+    console.log("Attempting to connect...");
   };
 
   const onConnected = () => {
@@ -34,6 +35,7 @@ const ChatRoom = () => {
     setUserData(prevState => ({ ...prevState, connected: true }));
 
     messageQueue.forEach(msg => {
+        console.log("Sending queued message");
       clientRef.current.sendMessage(msg.destination, msg.message);
     });
     setMessageQueue([]);
@@ -45,6 +47,7 @@ const ChatRoom = () => {
       sender: userData.username,
       type: "JOIN"
     };
+    console.log(`User joined: ${userData.username}`);
     sendMessage(`/app/chat.addUser/${roomId}`, JSON.stringify(chatMessage));
   };
 

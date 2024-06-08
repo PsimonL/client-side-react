@@ -12,13 +12,13 @@ const Login = () => {
     try {
       const response = await axios.post('http://localhost:8080/auth/login', { email, password });
       if (response.data === "User logged in successfully") {
-        console.log(response.data);
+        console.log('Login successful: ', response.data);
         navigate('/join-room', { state: { email } });
       } else {
         console.log(response.data);
       }
     } catch (error) {
-      console.error('Login failed', error);
+      console.error('Login failed: ', error);
     }
   };
 
