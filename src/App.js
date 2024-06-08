@@ -4,6 +4,7 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
 import ChatRoom from './components/ChatRoom';
+import JoinRoom from './components/JoinRoom';
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/chat" element={<ChatRoom />} />
+        <Route path="/join-room" element={<JoinRoom />} />
+        <Route path="/chat/:roomId" element={<ChatRoom />} />
       </Routes>
     </Router>
   );

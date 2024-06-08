@@ -13,7 +13,7 @@ const Login = () => {
       const response = await axios.post('http://localhost:8080/auth/login', { email, password });
       if (response.data === "User logged in successfully") {
         console.log(response.data);
-        navigate('/chat', { state: { email } });
+        navigate('/join-room', { state: { email } });
       } else {
         console.log(response.data);
       }
