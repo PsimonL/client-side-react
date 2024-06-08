@@ -12,21 +12,23 @@ function JoinRoom() {
   };
 
   return (
-    <div>
+    <div className="join-room-container">
       <h2>Join a Chat Room</h2>
       <input
         type="text"
         value={nickname}
         onChange={(e) => setNickname(e.target.value)}
         placeholder="Enter your nickname"
+        className="join-room-input"
       />
       <input
         type="text"
         value={roomId}
         onChange={(e) => setRoomId(e.target.value)}
         placeholder="Enter Room ID"
+        className="join-room-input"
       />
-      <button onClick={joinRoom}>Join</button>
+      <button onClick={joinRoom} className="join-room-button">Join</button>
     </div>
   );
 }
