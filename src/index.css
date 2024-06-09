@@ -1,6 +1,6 @@
 :root {
   --primary-color: #b444f9;
-  --secondary-color: #2196F3;
+  --secondary-color: #9a00fa;
   --background-color: #F5F5F5;
   --text-color: #333;
   --input-background: #FFF;
@@ -152,7 +152,7 @@ ul {
 }
 
 .avatar {
-  background-color: cornflowerblue;
+  background-color: rgb(251, 0, 0);
   padding: 3px 5px;
   border-radius: 5px;
   color: #fff;
@@ -160,7 +160,7 @@ ul {
 
 .avatar.self {
   color: #000;
-  background-color: greenyellow;
+  background-color: rgb(65, 198, 255);
 }
 
 .message {
@@ -191,6 +191,18 @@ ul {
   text-align: center;
 }
 
+.centered-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  padding: 20px;
+  background-color: var(--input-background);
+  box-shadow: var(--box-shadow);
+  border-radius: 10px;
+  margin: 20px auto;
+}
+
 .form-container {
   display: flex;
   flex-direction: column;
@@ -208,10 +220,24 @@ input {
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  padding-bottom: 20px; 
 }
 
 .button-container button {
   margin: 0 10px;
+}
+
+.back-button {
+  padding: 15px 30px;
+  font-size: 1.2em;
+  border-radius: 10px;
+  background-color: var(--secondary-color);
+  color: var(--button-text);
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: var(--button-hover);
 }
 
 .join-room-container {
