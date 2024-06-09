@@ -1,10 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import SockJsClient from 'react-stomp';
+import Picker from '@emoji-mart/react';
+import data from '@emoji-mart/data';
 
 const ChatRoom = () => {
   const { roomId } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
   const { nickname } = location.state || { nickname: '' };
   const [privateChats, setPrivateChats] = useState(new Map());
   const [publicChats, setPublicChats] = useState([]);
@@ -16,6 +19,7 @@ const ChatRoom = () => {
     message: ''
   });
   const [messageQueue, setMessageQueue] = useState([]);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false); // State to control emoji picker visibility
   const clientRef = useRef(null);
 
   useEffect(() => {
@@ -35,7 +39,7 @@ const ChatRoom = () => {
     setUserData(prevState => ({ ...prevState, connected: true }));
 
     messageQueue.forEach(msg => {
-        console.log("Sending queued message");
+      console.log("Sending queued message");
       clientRef.current.sendMessage(msg.destination, msg.message);
     });
     setMessageQueue([]);
@@ -90,6 +94,15 @@ const ChatRoom = () => {
     setUserData({ ...userData, message: value });
   };
 
+  const handleEmojiSelect = (emoji) => {
+    setUserData({ ...userData, message: userData.message + emoji.native });
+    setShowEmojiPicker(false); // Hide emoji picker after selecting an emoji
+  };
+
+  const toggleEmojiPicker = () => {
+    setShowEmojiPicker(!showEmojiPicker); // Toggle emoji picker visibility
+  };
+
   const sendMessage = (destination, message) => {
     if (clientRef.current && userData.connected) {
       clientRef.current.sendMessage(destination, message);
@@ -124,8 +137,15 @@ const ChatRoom = () => {
     setUserData({ ...userData, message: "" });
   };
 
+  const handleGoBack = () => {
+    navigate('/join-room');
+  };
+
   return (
     <div className="container">
+      <div className="centered-box">
+        <h2>Room ID: {roomId}</h2>
+      </div>
       <SockJsClient
         url="http://localhost:8080/ws"
         topics={userData.connected ? [`/topic/${roomId}`, `/user/${userData.username}/private`] : []}
@@ -183,6 +203,10 @@ const ChatRoom = () => {
                 value={userData.message}
                 onChange={handleMessage}
               />
+              <button type="button" className="emoji-button" onClick={toggleEmojiPicker}>
+                👍
+              </button>
+              {showEmojiPicker && <Picker data={data} onEmojiSelect={handleEmojiSelect} />}
               <button type="button" className="send-button" onClick={sendValue}>
                 Send
               </button>
@@ -208,12 +232,21 @@ const ChatRoom = () => {
                 value={userData.message}
                 onChange={handleMessage}
               />
+              <button type="button" className="emoji-button" onClick={toggleEmojiPicker}>
+                👍
+              </button>
+              {showEmojiPicker && <Picker data={data} onEmojiSelect={handleEmojiSelect} />}
               <button type="button" className="send-button" onClick={sendPrivateValue}>
                 Send
               </button>
             </div>
           </div>
         )}
+      </div>
+      <div className="button-container">
+        <button type="button" className="back-button" onClick={handleGoBack}>
+          Go Back to Join Room
+        </button>
       </div>
     </div>
   );
