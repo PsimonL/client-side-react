@@ -19,7 +19,7 @@ const ChatRoom = () => {
     message: ''
   });
   const [messageQueue, setMessageQueue] = useState([]);
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false); // State to control emoji picker visibility
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const clientRef = useRef(null);
 
   useEffect(() => {
@@ -96,14 +96,16 @@ const ChatRoom = () => {
 
   const handleEmojiSelect = (emoji) => {
     setUserData({ ...userData, message: userData.message + emoji.native });
-    setShowEmojiPicker(false); // Hide emoji picker after selecting an emoji
+    setShowEmojiPicker(false);
   };
 
   const toggleEmojiPicker = () => {
-    setShowEmojiPicker(!showEmojiPicker); // Toggle emoji picker visibility
+    setShowEmojiPicker(!showEmojiPicker); 
   };
 
   const sendMessage = (destination, message) => {
+    console.log("clientRef.current ", clientRef.current )
+    console.log("userData.connected ", userData.connected )
     if (clientRef.current && userData.connected) {
       clientRef.current.sendMessage(destination, message);
     } else {
